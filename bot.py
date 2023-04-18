@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import json
+import random
 
 with open("setting.json", "r", encoding="utf8") as jfile:
     jdata = json.load(jfile)
@@ -28,30 +29,39 @@ async def ping(ctx):                                #ctx(上下文)，回覆上�
 
 @bot.event
 async def on_message(msg):
-    if msg.content == "bbbb87cry" :
-        pic = discord.File(jdata["bbbb87cry"])
-    elif msg.content == "nlnlsofun" :
-        pic = discord.File(jdata["nlnlsofun"])
-    elif msg.content == "D:" :
-        pic = discord.File(jdata["D:"])
-    elif msg.content == "nlnlouo" :
-        pic = discord.File(jdata["nlnlouo"])
-    elif msg.content == "俊宏愛你" :
-        pic = discord.File(jdata["俊宏愛你"])
-    elif msg.content == "累了" :
-        pic = discord.File(jdata["累了"])
-    elif msg.content == "舔舔" :
-        pic = discord.File(jdata["舔舔"])
-    elif msg.content == "..." :
-        pic = discord.File(jdata["..."])
-    elif msg.content == "aquasmoke" :
-        pic = discord.File(jdata["aquasmoke"])
-    elif msg.content == "讚" :
-        pic = discord.File(jdata["讚"])
-    elif msg.content == "penis good" :
-        pic = discord.File(jdata["penis good"])
-    await msg.channel.send(file=pic)
+    keyword_dict = {
+        "bbbb87cry": jdata["bbbb87cry"],
+        "nlnlsofun": jdata["nlnlsofun"],
+        "D:": jdata["D:"],
+        "nlnlouo": jdata["nlnlouo"],
+        "俊宏愛你": jdata["俊宏愛你"],
+        "累了": jdata["累了"],
+        "舔舔": jdata["舔舔"],
+        "...": jdata["..."],
+        "aquasmoke": jdata["aquasmoke"],
+        "讚": jdata["讚"],
+        "penis good": jdata["penis good"]
+    }
 
+    greetings = ["你好", "哈囉", "安安"]
+
+    pic = None
+    for keyword in keyword_dict:
+        if keyword in msg.content:
+            pic = discord.File(keyword_dict[keyword])
+            break
+    
+    if any(keyword in msg.content for keyword in greetings) and msg.author!=bot.user:
+        greeting = random.choice(greetings)
+        await msg.channel.send(f"{msg.author.mention} {greeting}")
+    elif "原神" in msg.content and msg.author!=bot.user:
+        user = discord.utils.get(msg.guild.members, name="iantang")
+        await msg.channel.send(f"{user.mention}不要再玩原神了")
+    elif any(keyword in msg.content for keyword in ["日麻", "雀魂"]) and msg.author!=bot.user:
+        await msg.channel.send("@everyone 該搓日麻了吧!")
+
+    if pic:
+        await msg.channel.send(file=pic)
 
 
 bot.run(jdata["TOKEN"])
