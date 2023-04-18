@@ -53,7 +53,7 @@ async def on_message(msg):
     
     if any(keyword in msg.content for keyword in greetings) and msg.author!=bot.user:
         greeting = random.choice(greetings)
-        await msg.channel.send(f"{msg.author.mention} {greeting}")
+        await msg.channel.send(f"{msg.author.mention} {greeting}!")
     elif "原神" in msg.content and msg.author!=bot.user:
         user = discord.utils.get(msg.guild.members, name="iantang")
         await msg.channel.send(f"{user.mention}不要再玩原神了")
