@@ -74,6 +74,8 @@ async def on_message(msg):
         await msg.channel.send(f"{user.mention}不要再玩原神了!")
     elif any(keyword in msg.content for keyword in ["日麻", "雀魂"]) and msg.author!=bot.user:
         await msg.channel.send("@everyone 該搓日麻了吧!")
+    elif "不揪" in msg.content and msg.author != bot.user:
+        await msg.channel.send(f"{msg.author.mention} 你才不揪")
     if pic:
         await msg.channel.send(file=pic)
     await bot.process_commands(msg)
