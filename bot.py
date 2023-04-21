@@ -40,7 +40,7 @@ async def flip(ctx):
 @bot.command()
 async def cmd(ctx):
     keyword_dict=["bbbb87cry","nlnlsofun","D:","nlnlouo","俊宏愛你","累了","舔舔","..."
-                  ,"aquasmoke","讚","penis good"]
+                  ,"aquasmoke","讚","good"]
     commands_list = "\n".join([f"`{c.name}`" for c in bot.commands])
     keywords_list = "\n".join([f"`{k}`" for k in keyword_dict])
     await ctx.send(f"指令列表:\n{commands_list}\n\n貼圖列表:\n{keywords_list}")    
@@ -58,7 +58,7 @@ async def on_message(msg):
         "...": jdata["..."],
         "aquasmoke": jdata["aquasmoke"],
         "讚": jdata["讚"],
-        "penis good": jdata["penis good"]
+        "good": jdata["good"]
     }
     greetings = ["你好", "哈囉", "安安"]
     pic = None
