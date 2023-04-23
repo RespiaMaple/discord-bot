@@ -47,6 +47,7 @@ async def cmd(ctx):
 
 @bot.event
 async def on_message(msg):
+    #回覆貼圖
     keyword_dict = {
         "bbbb87cry": jdata["bbbb87cry"],
         "nlnlsofun": jdata["nlnlsofun"],
@@ -60,12 +61,15 @@ async def on_message(msg):
         "讚": jdata["讚"],
         "good": jdata["good"]
     }
-    greetings = ["你好", "哈囉", "安安"]
     pic = None
     for keyword in keyword_dict:
         if keyword in msg.content and msg.author!=bot.user:
             pic = discord.File(keyword_dict[keyword])
             break  
+    if pic:
+        await msg.channel.send(file=pic)
+    #回覆訊息
+    greetings = ["你好", "哈囉", "安安"]
     if any(keyword in msg.content for keyword in greetings) and msg.author!=bot.user:
         greeting = random.choice(greetings)
         await msg.channel.send(f"{msg.author.mention} {greeting}!")
@@ -76,8 +80,7 @@ async def on_message(msg):
         await msg.channel.send("@everyone 該搓日麻了吧!")
     elif "不揪" in msg.content and msg.author != bot.user:
         await msg.channel.send(f"{msg.author.mention} 你才不揪")
-    if pic:
-        await msg.channel.send(file=pic)
+    
     await bot.process_commands(msg)
 
 
